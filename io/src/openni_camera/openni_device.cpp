@@ -128,13 +128,13 @@ openni_wrapper::OpenNIDevice::OpenNIDevice (
   if (status != XN_STATUS_OK)
     THROW_OPENNI_EXCEPTION ("creating depth generator failed. Reason: %s", xnGetStatusString (status));
 
-  status = context_.CreateProductionTree (const_cast<xn::NodeInfo&>(image_node), image_generator_);
-  if (status != XN_STATUS_OK)
-    THROW_OPENNI_EXCEPTION ("creating image generator failed. Reason: %s", xnGetStatusString (status));
+  // status = context_.CreateProductionTree (const_cast<xn::NodeInfo&>(image_node), image_generator_);
+  // if (status != XN_STATUS_OK)
+  //   THROW_OPENNI_EXCEPTION ("creating image generator failed. Reason: %s", xnGetStatusString (status));
 
-  status = context_.CreateProductionTree (const_cast<xn::NodeInfo&>(ir_node), ir_generator_);
-  if (status != XN_STATUS_OK)
-    THROW_OPENNI_EXCEPTION ("creating IR generator failed. Reason: %s", xnGetStatusString (status));
+  // status = context_.CreateProductionTree (const_cast<xn::NodeInfo&>(ir_node), ir_generator_);
+  // if (status != XN_STATUS_OK)
+  //   THROW_OPENNI_EXCEPTION ("creating IR generator failed. Reason: %s", xnGetStatusString (status));
 #else
   XnStatus status = context_.CreateProductionTree (const_cast<xn::NodeInfo&>(depth_node));
   if (status != XN_STATUS_OK)
@@ -161,11 +161,11 @@ openni_wrapper::OpenNIDevice::OpenNIDevice (
   if (status != XN_STATUS_OK)
     THROW_OPENNI_EXCEPTION ("creating IR generator instance failed. Reason: %s", xnGetStatusString (status));
 #endif // (XN_MINOR_VERSION >= 3)
-  ir_generator_.RegisterToNewDataAvailable (static_cast<xn::StateChangedHandler> (NewIRDataAvailable), this, ir_callback_handle_);
+  // ir_generator_.RegisterToNewDataAvailable (static_cast<xn::StateChangedHandler> (NewIRDataAvailable), this, ir_callback_handle_);
 #endif // __APPLE__
 
   depth_generator_.RegisterToNewDataAvailable (static_cast<xn::StateChangedHandler> (NewDepthDataAvailable), this, depth_callback_handle_);
-  image_generator_.RegisterToNewDataAvailable (static_cast<xn::StateChangedHandler> (NewImageDataAvailable), this, image_callback_handle_);
+  // image_generator_.RegisterToNewDataAvailable (static_cast<xn::StateChangedHandler> (NewImageDataAvailable), this, image_callback_handle_);
 
   Init ();
 
@@ -680,7 +680,7 @@ bool
 openni_wrapper::OpenNIDevice::hasImageStream () const throw ()
 {
   boost::lock_guard<boost::mutex> lock (image_mutex_);
-  return (image_generator_.IsValid () != 0);
+  return 0; //(image_generator_.IsValid () != 0);
   //return (available_image_modes_.size() != 0);
 }
 
@@ -698,7 +698,7 @@ bool
 openni_wrapper::OpenNIDevice::hasIRStream () const throw ()
 {
   boost::lock_guard<boost::mutex> ir_lock (ir_mutex_);
-  return (ir_generator_.IsValid () != 0);
+  return 0; // (ir_generator_.IsValid () != 0);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1226,6 +1226,7 @@ openni_wrapper::OpenNIDevice::getDefaultIRMode () const throw ()
 void 
 openni_wrapper::OpenNIDevice::setImageOutputMode (const XnMapOutputMode& output_mode)
 {
+  return;
   if (hasImageStream ())
   {
     boost::lock_guard<boost::mutex> image_lock (image_mutex_);
@@ -1286,6 +1287,7 @@ openni_wrapper::OpenNIDevice::getDepthOutputFormat () const
 void 
 openni_wrapper::OpenNIDevice::setIROutputMode (const XnMapOutputMode& output_mode)
 {
+  return;
   if (hasIRStream ())
   {
     boost::lock_guard<boost::mutex> ir_lock (ir_mutex_);

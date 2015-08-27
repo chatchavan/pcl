@@ -63,18 +63,18 @@ openni_wrapper::DevicePrimesense::DevicePrimesense (
   setIROutputMode (getDefaultIRMode ());
 
   boost::unique_lock<boost::mutex> image_lock (image_mutex_);
-  XnStatus status = image_generator_.SetIntProperty ("InputFormat", 5);
-  if (status != XN_STATUS_OK)
-    THROW_OPENNI_EXCEPTION ("Error setting the image input format to Uncompressed YUV422. Reason: %s", xnGetStatusString (status));
+  // XnStatus status = image_generator_.SetIntProperty ("InputFormat", 5);
+  // if (status != XN_STATUS_OK)
+  //   THROW_OPENNI_EXCEPTION ("Error setting the image input format to Uncompressed YUV422. Reason: %s", xnGetStatusString (status));
 
-  status = image_generator_.SetPixelFormat (XN_PIXEL_FORMAT_YUV422);
-  if (status != XN_STATUS_OK)
-    THROW_OPENNI_EXCEPTION ("Failed to set image pixel format to YUV422. Reason: %s", xnGetStatusString (status));
+  // status = image_generator_.SetPixelFormat (XN_PIXEL_FORMAT_YUV422);
+  // if (status != XN_STATUS_OK)
+  //   THROW_OPENNI_EXCEPTION ("Failed to set image pixel format to YUV422. Reason: %s", xnGetStatusString (status));
 
   image_lock.unlock ();
 
   boost::lock_guard<boost::mutex> depth_lock (depth_mutex_);
-  status = depth_generator_.SetIntProperty ("RegistrationType", 1);
+  XnStatus status = depth_generator_.SetIntProperty ("RegistrationType", 1);
   if (status != XN_STATUS_OK)
     THROW_OPENNI_EXCEPTION ("Error setting the registration type. Reason: %s", xnGetStatusString (status));
 }
