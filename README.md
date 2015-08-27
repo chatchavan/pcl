@@ -14,14 +14,15 @@ Installation instruction for Raspberry Pi
 ===
 1. Install OpenNI. See [this instruction](https://gist.github.com/chatchavan/990d3c0a5b085dc7bae1)
 2. Install PCL dependencies. The easiest way to do this is to install `libpcl` from `jessie` (which wasn't compiled with OpenNI support). See [this instruction](https://gist.github.com/chatchavan/c758f1568d35bbf6dd75).
-2. Clone this repository to a folder, let's say `~/pcl`
-3. Configure:
+3. Clone this repository to a folder, let's say `~/pcl`
+4. Configure:
+
   ```
   cd ~/pcl && mkdir build && cd build
   ccmake .. 
   ```
-  In this step, ensure that you enabled OpenNI support and that the path of OpenNI library is correct. (For the latter, you need to turn on the advance mode. (Press "t")
-3. `make` and `sudo make install`.
+  In this step, ensure that you enabled OpenNI support and that the path of OpenNI library is correct. (For the latter, you need to turn on the advance mode. (Press "t") See [my configuration](https://gist.github.com/chatchavan/c758f1568d35bbf6dd75#file-cmakecache-txt) for reference. (I also turned many components that I don't need off.)
+5. `make` and `sudo make install`.
 
 Changes in `CMakeLists.txt` of your project
 ===
